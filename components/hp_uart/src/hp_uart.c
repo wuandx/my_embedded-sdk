@@ -54,8 +54,8 @@ void hp_uart_recv_str(char* str){
 #if CONFIG_HP_UART_IP_ID == 0
     while (1){
         hp_uart_recv(str++);
-        if (*(str - 1) == '\n')
-        {
+        if (*(str - 1) == '\n'){
+            *str = '\0';
             break;
         }
     }
