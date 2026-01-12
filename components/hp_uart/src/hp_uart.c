@@ -46,7 +46,6 @@ void hp_uart_recv(char* c){
 #if CONFIG_HP_UART_IP_ID == 0
     while (((REG_UART_1_LSR & 0x080) >> 7) == 1);
     *c = REG_UART_1_TRX;
-    hp_uart_send(*c);
 #elif CONFIG_HP_UART_IP_ID == 1
 
 #endif
