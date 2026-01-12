@@ -13,6 +13,16 @@
 void gpio_config(const gpio_config_t* config);
 
 /**
+ * @brief 设置单个GPIO引脚方向函数
+ * 
+ * 设置指定GPIO引脚的方向为输入或输出。
+ * 
+ * @param gpio_num GPIO引脚号，枚举类型gpio_num_t
+ * @param direction GPIO方向，枚举类型gpio_mode_t
+ */
+void gpio_set_direction(gpio_num_t gpio_num, gpio_mode_t direction);
+
+/**
  * @brief GPIO设置电平函数
  * 
  * 设置指定GPIO引脚的电平为高或低。

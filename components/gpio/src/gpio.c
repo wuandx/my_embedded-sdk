@@ -66,6 +66,14 @@ void gpio_config(const gpio_config_t* config)
     }
 }
 
+void gpio_set_direction(gpio_num_t gpio_num, gpio_mode_t direction){
+    if (direction == GPIO_MODE_INPUT){
+        gpio_set_input(gpio_num);
+    } else {
+        gpio_set_output(gpio_num);
+    }
+}
+
 void gpio_set_level(gpio_num_t gpio_num, gpio_level_t level){
     uint8_t io_group = gpio_num / 32;
     uint8_t io_offset = gpio_num % 32;
