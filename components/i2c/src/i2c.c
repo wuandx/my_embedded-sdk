@@ -16,6 +16,7 @@ void i2c_init(i2c_config_t* config){
     REG_I2C_0_CTRL = (uint32_t)0b10000000;
 }
 
+// static uint32_t i2c_get_ack(){
 static uint32_t i2c_get_ack(){
     while((REG_I2C_0_SR & I2C_STATUS_TIP) == 0);
     while((REG_I2C_0_SR & I2C_STATUS_TIP) != 0);
@@ -26,18 +27,18 @@ static uint32_t i2c_busy(){
     return ((REG_I2C_0_SR & I2C_STATUS_BUSY) == I2C_STATUS_BUSY);
 }
 static void i2c_start_write(uint8_t slave_addr){
-    REG_I2C_0_TXR = slave_addr << 1;
-    REG_I2C_0_CMD = I2C_START_WRITE;
-    if(!i2c_get_ack()){
-        printf("I2C: start write no ack\n");
-    }
+    do{
+        REG_I2C_0_TXR = slave_addr << 1;
+        REG_I2C_0_CMD = I2C_START_WRITE;
+    }while(!i2c_get_ack());
 }
 
 static void i2c_start_read(uint8_t slave_addr){
-    do{
-        REG_I2C_0_TXR = slave_addr << 1 | 0x1;
-        REG_I2C_0_CMD = I2C_START_WRITE;
-    }while(!i2c_get_ack());
+    REG_I2C_0_TXR = slave_addr << 1 | 0x1;
+    REG_I2C_0_CMD = I2C_START_WRITE;
+    if(!i2c_get_ack()){
+        printf("I2C: start read no ack\n");
+    }
 }
 
 static void i2c_stop(){
