@@ -33,8 +33,7 @@ void hp_uart_send(char c){
 
 void hp_uart_send_str(char* str){
 #if CONFIG_HP_UART_IP_ID == 0
-    while (*str)
-    {
+    while (*str){
         hp_uart_send(*str++);
     }
 #elif CONFIG_HP_UART_IP_ID == 1
@@ -53,8 +52,7 @@ void hp_uart_recv(char* c){
 
 void hp_uart_recv_str(char* str){
 #if CONFIG_HP_UART_IP_ID == 0
-    while (1)
-    {
+    while (1){
         hp_uart_recv(str++);
         if (*(str - 1) == '\n')
         {
